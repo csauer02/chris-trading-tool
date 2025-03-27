@@ -5,9 +5,10 @@ import TradeLog from "./components/TradeLog";
 
 function App() {
   const [result, setResult] = useState(null);
+  const apiUrl = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
 
   const handleBacktest = async (params) => {
-    const response = await fetch("http://localhost:5000/run-backtest", {
+    const response = await fetch(`${apiUrl}/run-backtest`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(params),
