@@ -1,5 +1,6 @@
+
+Flask
+yfinance
 backtrader
 pandas
-yfinance
-flask
-openai
+gunicorn
