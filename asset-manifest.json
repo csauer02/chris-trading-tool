@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/chris-trading-tool/static/js/main.c2458e3f.js",
+    "index.html": "/chris-trading-tool/index.html",
+    "main.c2458e3f.js.map": "/chris-trading-tool/static/js/main.c2458e3f.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.c2458e3f.js"
+  ]
+}
