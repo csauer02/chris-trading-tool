@@ -48,11 +48,20 @@ def run_src_strategy(params):
                         gain_target=params.get("gain_target", 0.10),
                         loss_limit=params.get("loss_limit", 0.05),
                         max_days=params.get("max_days", 30))
-
     try:
-        raw_data = yf.download(params["ticker"], start=params["start"], end=params["end"])
-        if raw_data.empty:
-            return {"error": "No data returned for the given ticker and date range."}
+        raw_data = yf.download(
+            tickers=params["ticker"],
+            start=params["start"],
+            end=params["end"],
+            progress=False
+        )
+
+        # Handle case where yfinance returns a tuple
+        if isinstance(raw_data, tuple):
+            raw_data = raw_data[0]
+
+        if raw_data is None or raw_data.empty or not hasattr(raw_data, 'columns'):
+            return {"error": "No valid data returned for the given ticker and date range."}
 
         data_bt = bt.feeds.PandasData(dataname=raw_data)
         cerebro.adddata(data_bt)
