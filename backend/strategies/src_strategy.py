@@ -49,9 +49,15 @@ def run_src_strategy(params):
                         loss_limit=params.get("loss_limit", 0.05),
                         max_days=params.get("max_days", 30))
 
-    data = yf.download(params["ticker"], start=params["start"], end=params["end"])
-    data_bt = bt.feeds.PandasData(dataname=data)
-    cerebro.adddata(data_bt)
-    cerebro.broker.setcash(1000.0)
-    cerebro.run()
-    return {"final_value": cerebro.broker.getvalue()}
+    try:
+        raw_data = yf.download(params["ticker"], start=params["start"], end=params["end"])
+        if raw_data.empty:
+            return {"error": "No data returned for the given ticker and date range."}
+
+        data_bt = bt.feeds.PandasData(dataname=raw_data)
+        cerebro.adddata(data_bt)
+        cerebro.broker.setcash(1000.0)
+        cerebro.run()
+        return {"final_value": cerebro.broker.getvalue()}
+    except Exception as e:
+        return {"error": str(e)}
