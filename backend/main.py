@@ -1,9 +1,11 @@
 
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from strategies.src_strategy import run_src_strategy
 import os
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/run-backtest", methods=["POST"])
 def run_backtest():

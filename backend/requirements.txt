@@ -4,3 +4,4 @@ yfinance
 backtrader
 pandas
 gunicorn
+flask-cors
